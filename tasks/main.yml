@@ -1,2 +1,33 @@
 ---
-# tasks file for init-hosts
+- name: authorize ssh keys from file
+  authorized_key:
+    user: "{{ ansible_user }}"
+    state: present
+    key: "{{ item }}"
+  with_file: "{{ ssh_pub_key_files }}"
+  when:
+    - ssh_pub_key_files is defined
+    - ssh_pub_key_files|length > 0
+
+- name: authorize ssh keys from content
+  authorized_key:
+    user: "{{ ansible_user }}"
+    state: present
+    key: "{{ item }}"
+  with_items: "{{ ssh_pub_key_contents }}"
+  when:
+    - ssh_pub_key_contents is defined
+    - ssh_pub_key_contents|length > 0
+
+- name: set the ansible_user passwordless sudo
+  copy:
+    dest: "/etc/sudoers.d/{{ ansible_user }}"
+    content: "{{ ansible_user }} ALL=(ALL) NOPASSWD: ALL"
+    owner: root
+    group: root
+    validate: 'visudo -cf %s'
+    mode: 0440
+
+- name: install acl for ansible become_user
+  package:
+    name: acl

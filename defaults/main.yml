@@ -1,2 +1,5 @@
 ---
-# defaults file for init-hosts
+ssh_pub_key_files:
+  - ~/.ssh/id_rsa.pub
+
+ssh_pub_key_contents: []
