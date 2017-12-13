@@ -35,8 +35,8 @@ galaxy_info:
 
   galaxy_tags:
     - init
-    - ssh-authorize
-    - passwordless-sudo
+    - ssh_authorize
+    - passwordless_sudo
 
 
 dependencies: []
