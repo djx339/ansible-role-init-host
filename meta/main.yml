@@ -35,7 +35,7 @@ galaxy_info:
 
   galaxy_tags:
     - init
-    - ssh_authorize
+    - ssh authorize
     - passwordless_sudo
 
 
